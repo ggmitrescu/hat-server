@@ -414,6 +414,9 @@ export class BootServer {
             location = newLocation.toString();
         }
 
+        console.debug('Manual replace redirect host 301.');
+        location = location.replace(NEXT_PUBLIC_WEBSITE_DOMAIN, 'https://'+req.headers?.get('host') || NEXT_PUBLIC_WEBSITE_DOMAIN);
+
         const redResp = new Response(null, {status: 301});
         redResp.headers.set('Location', location);
         redResp.headers.set('Cache-Control', 'max-age=60');
